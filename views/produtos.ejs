@@ -1,0 +1,76 @@
+<%- include ('partials/header') %>
+
+<main class="shell">
+    <section class="page-head">
+        <span class="eyebrow">Produtos</span>
+        <h1>Catalogo da loja</h1>
+        <p>Cadastro e atualizacao persistidos no banco de dados.</p>
+    </section>
+
+    <section class="panel">
+        <div class="section-title">
+            <h2>Novo produto</h2>
+            <% if (error) { %>
+                <p class="error"><%= error %></p>
+            <% } %>
+        </div>
+
+        <form action="/produtos" method="post" class="form-grid">
+            <label>
+                Nome
+                <input name="nome" placeholder="Notebook, monitor, acessorio..." required>
+            </label>
+            <label>
+                Valor
+                <input name="valor" type="number" min="0" step="0.01" placeholder="0.00" required>
+            </label>
+            <label>
+                Estoque
+                <input name="estoque" type="number" min="0" step="1" placeholder="10" required>
+            </label>
+            <label>
+                Categoria
+                <select name="categoria_id" required>
+                    <% categorias.forEach((categoria) => { %>
+                        <option value="<%= categoria.id %>"><%= categoria.nome %></option>
+                    <% }) %>
+                </select>
+            </label>
+            <button type="submit">Cadastrar</button>
+        </form>
+    </section>
+
+    <section class="panel">
+        <div class="section-title">
+            <h2>Produtos cadastrados</h2>
+            <span class="badge"><%= produtos.length %> itens</span>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                        <th>Estoque</th>
+                        <th>Categoria</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% produtos.forEach((produto) => { %>
+                        <tr>
+                            <td class="product-name"><%= produto.nome %></td>
+                            <td>R$ <%= Number(produto.valor).toFixed(2) %></td>
+                            <td><%= produto.estoque %></td>
+                            <td><span class="pill"><%= produto.categoria %></span></td>
+                            <td><a class="button compact" href="/produtos/<%= produto.id %>/editar">Editar</a></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<%- include ('partials/footer') %>

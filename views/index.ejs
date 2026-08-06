@@ -1,0 +1,46 @@
+<%- include ('partials/header') %>
+
+<main class="shell">
+    <section class="hero">
+        <div class="hero-copy">
+            <span class="eyebrow">Aplicacao MVC</span>
+            <h1>Loja organizada com telas renderizadas no servidor</h1>
+            <p>Cadastro e edicao de produtos em uma interface simples, conectada ao banco MySQL.</p>
+
+            <div class="actions">
+                <a class="button" href="/produtos">Abrir produtos</a>
+                <a class="button ghost" href="/about">Ver projeto</a>
+            </div>
+        </div>
+
+        <aside class="hero-card">
+            <span class="card-label">Fluxo MVC</span>
+            <div class="flow-list">
+                <strong>Express recebe a rota</strong>
+                <strong>Controller aplica a regra</strong>
+                <strong>EJS renderiza a tela</strong>
+                <strong>MySQL persiste os dados</strong>
+            </div>
+        </aside>
+    </section>
+
+    <section class="summary-grid">
+        <article>
+            <span>01</span>
+            <h2>Views EJS</h2>
+            <p>Paginas HTML renderizadas pelo back-end.</p>
+        </article>
+        <article>
+            <span>02</span>
+            <h2>Produtos</h2>
+            <p>Formulario, listagem e edicao usando banco real.</p>
+        </article>
+        <article>
+            <span>03</span>
+            <h2>Deploy</h2>
+            <p>Pronto para rodar em nuvem com variaveis de ambiente.</p>
+        </article>
+    </section>
+</main>
+
+<%- include ('partials/footer') %>
