@@ -4,24 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
-    <title>Loja MVC</title>
+    <title>EventHub</title>
 </head>
 <body>
 <header class="site-header">
     <div class="shell header-inner">
-        <a class="brand" href="/">
-            <span class="brand-mark">L</span>
-            <span>
-                <strong>Loja MVC</strong>
-                <small>Showroom monolitico</small>
-            </span>
-        </a>
-
+        <a class="brand" href="/"><span class="brand-mark">E</span><span><strong>EventHub</strong><small>Gestao de eventos</small></span></a>
         <nav aria-label="Navegacao principal">
-            <a href="/">Home</a>
-            <a href="/produtos">Produtos</a>
-            <a href="/about">Sobre</a>
-            <a href="/contato">Contato</a>
+            <a href="/">Eventos</a>
+            <% if (usuario?.papel === 'organizador') { %><a href="/eventos/novo">Novo evento</a><% } %>
+            <% if (usuario) { %>
+                <span class="user-pill"><%= usuario.nome %> · <%= usuario.papel %></span>
+                <form action="/logout" method="post"><button class="link-button" type="submit">Sair</button></form>
+            <% } else { %>
+                <a href="/login">Entrar</a><a class="button compact" href="/cadastro">Criar conta</a>
+            <% } %>
         </nav>
     </div>
 </header>
