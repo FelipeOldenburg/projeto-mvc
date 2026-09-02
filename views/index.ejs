@@ -11,7 +11,7 @@
         <% eventos.forEach((evento) => { %>
             <article class="event-card">
                 <div class="event-date"><strong><%= new Date(evento.data_evento).toLocaleDateString('pt-BR', { day: '2-digit' }) %></strong><span><%= new Date(evento.data_evento).toLocaleDateString('pt-BR', { month: 'short' }) %></span></div>
-                <div class="event-body"><span class="status <%= evento.vagas_disponiveis > 0 ? 'open' : 'full' %>"><%= evento.vagas_disponiveis > 0 ? 'Inscricoes abertas' : 'Lotado' %></span><h3><%= evento.titulo %></h3><p><%= evento.descricao %></p><dl><div><dt>Local</dt><dd><%= evento.local %></dd></div><div><dt>Vagas</dt><dd><%= evento.inscritos %>/<%= evento.vagas %></dd></div></dl><a class="button ghost" href="/eventos/<%= evento.id %>">Ver detalhes</a></div>
+                <div class="event-body"><span class="status <%= evento.vagas_disponiveis > 0 ? 'open' : 'full' %>"><%= evento.vagas_disponiveis > 0 ? 'Inscricoes abertas' : 'Lotado' %></span><h3><%= evento.titulo %></h3><p><%= evento.descricao %></p><dl><div><dt>Local</dt><dd><%= evento.local %></dd></div><div><dt>Vagas</dt><dd><%= evento.inscritos %>/<%= evento.vagas %></dd></div></dl><progress value="<%= evento.inscritos %>" max="<%= evento.vagas %>" aria-label="<%= evento.inscritos %> de <%= evento.vagas %> vagas ocupadas"></progress><div class="actions"><a class="button ghost" href="/eventos/<%= evento.id %>">Ver detalhes</a></div></div>
             </article>
         <% }) %>
         <% if (!eventos.length) { %><div class="empty"><h3>Nenhum evento publicado</h3><p>A agenda sera atualizada em breve.</p></div><% } %>
