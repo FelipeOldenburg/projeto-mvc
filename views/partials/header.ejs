@@ -14,7 +14,7 @@
             <a href="/">Eventos</a>
             <% if (usuario?.papel === 'organizador') { %><a href="/eventos/novo">Novo evento</a><% } %>
             <% if (usuario) { %>
-                <span class="user-pill"><%= usuario.nome %> · <%= usuario.papel %></span>
+                <span class="user-pill <%= usuario.papel %>"><%= usuario.nome %> · <%= usuario.papel %></span>
                 <form action="/logout" method="post"><button class="link-button" type="submit">Sair</button></form>
             <% } else { %>
                 <a href="/login">Entrar</a><a class="button compact" href="/cadastro">Criar conta</a>
