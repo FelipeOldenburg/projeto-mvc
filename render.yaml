@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: loja-mvc
+    name: eventhub-mvc
     runtime: node
     plan: free
     buildCommand: npm ci
@@ -21,7 +21,9 @@ services:
         sync: false
       - key: DB_NAME
         sync: false
+      - key: SESSION_SECRET
+        generateValue: true
       - key: DB_SSL
-        value: false
+        value: true
       - key: DB_SSL_REJECT_UNAUTHORIZED
         value: true

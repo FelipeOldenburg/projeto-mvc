@@ -1,0 +1,3 @@
+<%- include('partials/header') %>
+<main class="auth-shell"><section class="auth-card"><span class="eyebrow">Bem-vindo de volta</span><h1>Entre no EventHub</h1><p>Acesse sua agenda ou gerencie seus eventos.</p><% if (error) { %><p class="alert error"><%= error %></p><% } %><form action="/login" method="post" class="stack"><label>E-mail<input name="email" type="email" autocomplete="email" required></label><label>Senha<input name="senha" type="password" autocomplete="current-password" required></label><button type="submit">Entrar</button></form><p class="form-note">Ainda nao tem conta? <a href="/cadastro">Cadastre-se</a>.</p></section></main>
+<%- include('partials/footer') %>

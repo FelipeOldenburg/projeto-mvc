@@ -1,0 +1,14 @@
+<%- include('partials/header') %>
+<main class="shell narrow">
+    <section class="page-head"><span class="eyebrow">Area do organizador</span><h1><%= evento?.id ? 'Editar evento' : 'Novo evento' %></h1><p>Preencha as informacoes que aparecerao para os participantes.</p></section>
+    <section class="panel">
+        <% if (error) { %><p class="alert error"><%= error %></p><% } %>
+        <form action="<%= evento?.id ? `/eventos/${evento.id}/editar` : '/eventos' %>" method="post" class="stack">
+            <label>Titulo<input name="titulo" value="<%= evento?.titulo || '' %>" maxlength="120" required></label>
+            <label>Descricao<textarea name="descricao" rows="5" required><%= evento?.descricao || '' %></textarea></label>
+            <div class="form-row"><label>Local<input name="local" value="<%= evento?.local || '' %>" required></label><label>Data e horario<input name="data_evento" type="datetime-local" value="<%= evento?.data_evento ? new Date(evento.data_evento).toISOString().slice(0, 16) : '' %>" required></label><label>Vagas<input name="vagas" type="number" min="1" value="<%= evento?.vagas || 30 %>" required></label></div>
+            <div class="actions"><button type="submit">Salvar evento</button><a class="button ghost" href="/">Cancelar</a></div>
+        </form>
+    </section>
+</main>
+<%- include('partials/footer') %>
