@@ -52,7 +52,7 @@ body::before {
   opacity: .72;
   pointer-events: none;
   will-change: transform, opacity;
-  animation: particle-drift-a 52s cubic-bezier(.25, 1, .5, 1) infinite alternate;
+  animation: particle-drift-a 24s cubic-bezier(.25, 1, .5, 1) -6s infinite alternate;
 }
 body::after {
   position: fixed;
@@ -68,20 +68,22 @@ body::after {
   opacity: .68;
   pointer-events: none;
   will-change: transform, opacity;
-  animation: particle-drift-b 67s cubic-bezier(.22, 1, .36, 1) infinite alternate;
+  animation: particle-drift-b 31s cubic-bezier(.22, 1, .36, 1) -14s infinite alternate;
 }
 body > * { position: relative; z-index: 1; }
 @keyframes particle-drift-a {
-  0% { opacity: .48; transform: translate3d(-1.5%, -1%, 0) scale(1); }
-  34% { opacity: .76; transform: translate3d(1.25%, 1.5%, 0) scale(1.03); }
-  68% { opacity: .58; transform: translate3d(-.75%, 2.25%, 0) scale(.98); }
-  100% { opacity: .72; transform: translate3d(2%, -.75%, 0) scale(1.02); }
+  0% { opacity: .48; transform: translate3d(-5%, -3%, 0) scale(1); }
+  23% { opacity: .76; transform: translate3d(4%, 5%, 0) scale(1.04); }
+  51% { opacity: .54; transform: translate3d(-3%, 7%, 0) scale(.97); }
+  78% { opacity: .7; transform: translate3d(6%, -2%, 0) scale(1.03); }
+  100% { opacity: .58; transform: translate3d(1%, -6%, 0) scale(1); }
 }
 @keyframes particle-drift-b {
-  0% { opacity: .66; transform: translate3d(1%, 1.5%, 0) scale(1); }
-  29% { opacity: .46; transform: translate3d(-2.25%, .5%, 0) scale(1.04); }
-  63% { opacity: .74; transform: translate3d(1.5%, -2%, 0) scale(.97); }
-  100% { opacity: .54; transform: translate3d(-.5%, -1%, 0) scale(1.02); }
+  0% { opacity: .66; transform: translate3d(5%, 4%, 0) scale(1); }
+  31% { opacity: .46; transform: translate3d(-6%, 1%, 0) scale(1.05); }
+  59% { opacity: .74; transform: translate3d(3%, -7%, 0) scale(.96); }
+  82% { opacity: .5; transform: translate3d(-2%, -4%, 0) scale(1.04); }
+  100% { opacity: .7; transform: translate3d(7%, 2%, 0) scale(1); }
 }
 a { color: inherit; }
 h1, h2, h3, p { margin-top: 0; }
