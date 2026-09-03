@@ -23,6 +23,34 @@
             <% } else { %>
                 <a href="/login">Entrar</a><a class="button compact" href="/cadastro">Criar conta</a>
             <% } %>
+            <button class="motion-toggle" type="button" data-particle-toggle aria-pressed="false">Ativar luzes</button>
         </nav>
     </div>
 </header>
+<script>
+    (() => {
+        const key = 'eventhub-particle-motion';
+        const toggle = document.querySelector('[data-particle-toggle]');
+        let active = false;
+
+        try {
+            const choice = new URLSearchParams(window.location.search).get('motion');
+            if (choice === 'on' || choice === 'off') localStorage.setItem(key, choice);
+            active = localStorage.getItem(key) === 'on';
+        } catch (_) {}
+
+        const setMotion = (enabled) => {
+            document.documentElement.toggleAttribute('data-particles-active', enabled);
+            if (!toggle) return;
+            toggle.setAttribute('aria-pressed', String(enabled));
+            toggle.textContent = enabled ? 'Pausar luzes' : 'Ativar luzes';
+        };
+
+        setMotion(active);
+        toggle?.addEventListener('click', () => {
+            active = !active;
+            try { localStorage.setItem(key, active ? 'on' : 'off'); } catch (_) {}
+            setMotion(active);
+        });
+    })();
+</script>
