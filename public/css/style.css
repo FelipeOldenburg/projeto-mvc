@@ -51,8 +51,38 @@ body::before {
   content: "";
   opacity: .72;
   pointer-events: none;
+  will-change: transform, opacity;
+  animation: particle-drift-a 52s cubic-bezier(.25, 1, .5, 1) infinite alternate;
+}
+body::after {
+  position: fixed;
+  inset: -4%;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 11% 23%, rgba(133, 177, 255, .82) 0 1.5px, rgba(79, 140, 255, .16) 2px, transparent 8px),
+    radial-gradient(circle at 29% 77%, rgba(104, 158, 255, .68) 0 1px, rgba(79, 140, 255, .14) 2px, transparent 6px),
+    radial-gradient(circle at 62% 17%, rgba(176, 205, 255, .72) 0 1.5px, rgba(79, 140, 255, .16) 2px, transparent 8px),
+    radial-gradient(circle at 81% 54%, rgba(92, 150, 255, .75) 0 1px, rgba(79, 140, 255, .14) 2px, transparent 7px),
+    radial-gradient(circle at 93% 87%, rgba(162, 197, 255, .62) 0 1px, transparent 6px);
+  content: "";
+  opacity: .68;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: particle-drift-b 67s cubic-bezier(.22, 1, .36, 1) infinite alternate;
 }
 body > * { position: relative; z-index: 1; }
+@keyframes particle-drift-a {
+  0% { opacity: .48; transform: translate3d(-1.5%, -1%, 0) scale(1); }
+  34% { opacity: .76; transform: translate3d(1.25%, 1.5%, 0) scale(1.03); }
+  68% { opacity: .58; transform: translate3d(-.75%, 2.25%, 0) scale(.98); }
+  100% { opacity: .72; transform: translate3d(2%, -.75%, 0) scale(1.02); }
+}
+@keyframes particle-drift-b {
+  0% { opacity: .66; transform: translate3d(1%, 1.5%, 0) scale(1); }
+  29% { opacity: .46; transform: translate3d(-2.25%, .5%, 0) scale(1.04); }
+  63% { opacity: .74; transform: translate3d(1.5%, -2%, 0) scale(.97); }
+  100% { opacity: .54; transform: translate3d(-.5%, -1%, 0) scale(1.02); }
+}
 a { color: inherit; }
 h1, h2, h3, p { margin-top: 0; }
 h1, h2, h3 { text-wrap: balance; }
@@ -291,5 +321,5 @@ textarea { resize: vertical; }
   .actions > *, .actions form, .actions button { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+  *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
