@@ -1,7 +1,17 @@
 const router = require('express').Router();
 const controller = require('../controllers/userControllers');
+const EventHub = require('../models/userModels');
 
 router.use(controller.session);
+router.use(async (req, res, next) => {
+    try {
+        await EventHub.initializeSchema();
+        next();
+    } catch (error) {
+        console.error('Erro ao inicializar banco:', error.message);
+        res.status(503).render('erro', { mensagem: 'O banco de dados esta indisponivel. Tente novamente em instantes.' });
+    }
+});
 router.get('/', controller.index);
 router.get('/login', controller.loginPage);
 router.post('/login', controller.login);
