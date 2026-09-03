@@ -25,6 +25,8 @@
 * { box-sizing: border-box; }
 html { background: var(--bg); }
 body {
+  position: relative;
+  isolation: isolate;
   margin: 0;
   min-height: 100vh;
   overflow-x: hidden;
@@ -39,17 +41,18 @@ body {
 body::before {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   background-image:
-    radial-gradient(circle, rgba(114, 164, 255, .42) 0 1px, transparent 1.5px),
-    radial-gradient(circle, rgba(79, 140, 255, .22) 0 1px, transparent 1.5px),
-    radial-gradient(circle, rgba(189, 214, 255, .18) 0 1px, transparent 1.5px);
+    radial-gradient(circle, rgba(147, 187, 255, .9) 0 1.5px, rgba(79, 140, 255, .2) 2px, transparent 6px),
+    radial-gradient(circle, rgba(79, 140, 255, .72) 0 1px, rgba(79, 140, 255, .14) 2px, transparent 5px),
+    radial-gradient(circle, rgba(189, 214, 255, .55) 0 1px, transparent 4px);
   background-position: 8% 16%, 74% 10%, 91% 68%;
-  background-size: 19rem 23rem, 27rem 31rem, 34rem 29rem;
+  background-size: 17rem 21rem, 25rem 29rem, 31rem 27rem;
   content: "";
-  opacity: .55;
+  opacity: .72;
   pointer-events: none;
 }
+body > * { position: relative; z-index: 1; }
 a { color: inherit; }
 h1, h2, h3, p { margin-top: 0; }
 h1, h2, h3 { text-wrap: balance; }
