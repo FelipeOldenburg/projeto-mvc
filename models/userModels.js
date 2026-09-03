@@ -13,6 +13,52 @@ const db = mysql.createPool({
     connectionLimit: 10
 });
 
+let schemaPromise;
+
+/**
+ * Inicializa o schema do EventHub quando o banco configurado ainda está vazio.
+ * A criação é idempotente e não altera tabelas já existentes.
+ */
+const initializeSchema = async () => {
+    if (process.env.NODE_ENV === 'test') return;
+    if (!schemaPromise) {
+        schemaPromise = (async () => {
+            await db.execute(`CREATE TABLE IF NOT EXISTS usuarios (
+                id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                nome VARCHAR(100) NOT NULL,
+                email VARCHAR(190) NOT NULL UNIQUE,
+                senha_hash VARCHAR(100) NOT NULL,
+                papel ENUM('organizador', 'participante') NOT NULL,
+                criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB`);
+            await db.execute(`CREATE TABLE IF NOT EXISTS eventos (
+                id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                titulo VARCHAR(120) NOT NULL,
+                descricao TEXT NOT NULL,
+                local VARCHAR(160) NOT NULL,
+                data_evento DATETIME NOT NULL,
+                vagas INT UNSIGNED NOT NULL,
+                organizador_id INT UNSIGNED NOT NULL,
+                criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                CONSTRAINT fk_eventos_organizador FOREIGN KEY (organizador_id) REFERENCES usuarios(id)
+            ) ENGINE=InnoDB`);
+            await db.execute(`CREATE TABLE IF NOT EXISTS inscricoes (
+                id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                evento_id INT UNSIGNED NOT NULL,
+                participante_id INT UNSIGNED NOT NULL,
+                criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE KEY uq_evento_participante (evento_id, participante_id),
+                CONSTRAINT fk_inscricoes_evento FOREIGN KEY (evento_id) REFERENCES eventos(id) ON DELETE CASCADE,
+                CONSTRAINT fk_inscricoes_participante FOREIGN KEY (participante_id) REFERENCES usuarios(id) ON DELETE CASCADE
+            ) ENGINE=InnoDB`);
+        })().catch((error) => {
+            schemaPromise = null;
+            throw error;
+        });
+    }
+    return schemaPromise;
+};
+
 const findUsuarioByEmail = async (email) => {
     const [rows] = await db.execute(
         'SELECT id, nome, email, senha_hash, papel FROM usuarios WHERE email = ? LIMIT 1',
@@ -96,4 +142,4 @@ const createInscricao = async (eventoId, participanteId) => {
     }
 };
 
-module.exports = { findUsuarioByEmail, createUsuario, listEventos, findEventoById, createEvento, updateEvento, deleteEvento, createInscricao };
+module.exports = { initializeSchema, findUsuarioByEmail, createUsuario, listEventos, findEventoById, createEvento, updateEvento, deleteEvento, createInscricao };
